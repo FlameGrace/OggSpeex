@@ -17,5 +17,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/FlameGrace/OggSpeex.git", :tag => "0.0.1" }
   s.source_files  = "OggSpeex", "OggSpeex/**/*.{h,m}"
   s.public_header_files = "OggSpeex/**/*.h"
-  s.xcconfig = { "LIBRARY_SEARCH_PATHS" => "${PODS_ROOT}/OggSpeex/lib" }
+  s.xcconfig = { "LIBRARY_SEARCH_PATHS" => '"$(PODS_ROOT)/OggSpeex/lib"'
+ }
 end

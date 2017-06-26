@@ -13,10 +13,12 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/FlameGrace/OggSpeex"
   s.license      = "BSD"
   s.author             = { "FlameGrace" => "flamegrace@hotmail.com" }
-  s.ios.deployment_target = "6.0"
+  s.ios.deployment_target = "8.0"
   s.source       = { :git => "https://github.com/FlameGrace/OggSpeex.git", :tag => "0.0.1" }
   s.source_files  = "OggSpeex", "OggSpeex/**/*.{h,m}"
   s.public_header_files = "OggSpeex/**/*.h"
-  s.xcconfig = { "LIBRARY_SEARCH_PATHS" => '"$(PODS_ROOT)/OggSpeex/lib"'
+  s.xcconfig = { "LIBRARY_SEARCH_PATHS" => '"$(PODS_ROOT)/OggSpeex/OggSpeex/lib"',
+  "ENABLE_BITCODE" => 'NO',
+  "Preprocessor Macros" => '',
  }
 end

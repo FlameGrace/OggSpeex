@@ -12,6 +12,17 @@
 #define DESIRED_BUFFER_SIZE 4096
 
 @interface Decapsulator()
+{
+    NSString *mFileName;
+    
+    BOOL isPlaying;
+    
+    NSOperationQueue *operationQueue;
+    
+    ogg_stream_state oggStreamState;
+    ogg_sync_state oggSyncState;
+    int packetNo;
+}
 
 //将ogg格式数据转换为pcm数据
 - (void)convertOggToPCMWithData:(NSData *)oggData;
@@ -37,6 +48,11 @@
         operationQueue = [[NSOperationQueue alloc] init];
     }
     return self;
+}
+
+- (BOOL)isPlaying
+{
+    return isPlaying;
 }
 
 - (void)play {

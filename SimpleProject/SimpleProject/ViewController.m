@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "OggSpeexManager.h"
+#import "RecorderDelegater.h"
+#import "PlayerDelegater.h"
 
 @interface RecordObject : NSObject
 
@@ -27,15 +29,21 @@
 @end
 
 
-@interface ViewController () <UITableViewDelegate,UITableViewDataSource,OggSpeexManagerDelegate>
+@interface ViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray <RecordObject *> *records;
 
 @property (weak, nonatomic) OggSpeexManager *speex;
 
 @property (strong, nonatomic) UIButton *recordButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *playbackButton;
-- (IBAction)switchCategory:(id)sender;
+
+@property (strong, nonatomic) RecordObject *playingModel;
+
+@property (strong, nonatomic) RecorderDelegater *recordDelegater;
+
+@property (strong, nonatomic) PlayerDelegater *playDelegater;
 
 @end
 
@@ -43,62 +51,54 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    __weak typeof(self) weakSelf = self;
+    self.recordDelegater = [[RecorderDelegater alloc]init];
+    self.recordDelegater.playCateGoryBlock = ^{
+        [weakSelf showCategory];
+    };
+    self.recordDelegater.newBlock = ^(NSString *filePath, NSTimeInterval duration) {
+        [weakSelf recordNewFile:filePath recordDuration:duration];
+    };
+    
+    self.playDelegater = [[PlayerDelegater alloc]init];
+    self.playDelegater.playCateGoryBlock = ^{
+        [weakSelf showCategory];
+    };
+    self.playDelegater.stopBlock = ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+        });
+    };
     self.speex = [OggSpeexManager shareInstance];
-    self.speex.delegate = self;
+    self.speex.delegate = self.recordDelegater;
     self.records = [[NSMutableArray alloc]init];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self showCategory];
 }
 
-
-- (void)speexManager:(OggSpeexManager *)speex didRecordSuccessfulWithFileName:(NSString *)filePath time:(NSTimeInterval)interval
+- (void)recordNewFile:(NSString *)filePath recordDuration:(NSTimeInterval)duration
 {
-    NSLog(@"已获得录音文件");
     RecordObject *object = [RecordObject object];
     object.localPath = filePath;
-    object.duration = interval;
+    object.duration = duration;
     [self.records addObject:object];
     
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
-}
-- (void)speexManagerDidRecordTimeout:(OggSpeexManager *)speex
-{
-    NSLog(@"已超出最大录音时间");
-}
-- (void)speexManagerDidStopRecord:(OggSpeexManager *)speex
-{
-    NSLog(@"已停止录音");
-}
-- (void)speexManager:(OggSpeexManager *)speex didRecordFailure:(NSString *)errorDesciption
-{
-    NSLog(@"录音失败:%@",errorDesciption);
-}
-- (void)speexManager:(OggSpeexManager *)speex recordingLeverMeterUpdated:(float)levelMeter
-{
-    NSLog(@"录音音量变化：%f",levelMeter);
-}
-- (void)speexManager:(OggSpeexManager *)speex recordingTimeUpdated:(NSTimeInterval)interval
-{
-    NSLog(@"录音时长变化：%f",interval);
-}
-
-- (void)speexManagerDidStopPlay:(OggSpeexManager *)speex
-{
-    NSLog(@"停止播放");
-}
-
-- (void)speexManagerPlayCategoryChanged:(OggSpeexManager *)speex
-{
-    [self switchCategory];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     RecordObject *object = self.records[indexPath.row];
-    cell.textLabel.text = [object.localPath lastPathComponent];
+    NSString *title = [object.localPath lastPathComponent];
+    if(self.playingModel && [self.playingModel isEqual:object]&&[self.speex isPlaying])
+    {
+        title = [title stringByAppendingString:@"   正在播放"];
+    }
+    cell.textLabel.text = title;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f",object.duration];
     return cell;
 }
@@ -107,9 +107,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.speex.delegate = self.playDelegater;
     RecordObject *object = self.records[indexPath.row];
-    [self.speex playAudioWithFilePath:object.localPath];
-    
+    if(self.speex.isRecording)
+    {
+        [self.speex stopRecord];
+    }
+    if(self.playingModel && [self.playingModel isEqual:object]&&self.speex.isPlaying)
+    {
+        [self.speex stopPlay];
+    }
+    else
+    {
+        self.playingModel = object;
+        [self.speex playAudioFile:object.localPath];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -129,15 +144,17 @@
 
 
 
-- (IBAction)record:(id)sender {
-    
+- (IBAction)record:(id)sender
+{
+    self.speex.delegate = self.recordDelegater;
     NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%f.spx",[NSDate date].timeIntervalSince1970]];
-    [self.speex startRecordingInFilePath:filePath];
-    [self switchCategory];
+    [self.speex startRecordInFilePath:filePath];
+    [self showCategory];
 }
 
-- (IBAction)stop:(id)sender {
-    [self.speex stopRecording];
+- (IBAction)stop:(id)sender
+{
+    [self.speex stopRecord];
 }
 
 - (IBAction)switchCategory:(id)sender {
@@ -152,17 +169,24 @@
     }
 }
 
-- (void)switchCategory
+- (void)showCategory
 {
-    
-    if([self.speex.playCategory isEqualToString:AVAudioSessionCategoryPlayback])
-    {
-        //听筒模式
-        [self.playbackButton setTitle:@"Receiver" forState:UIControlStateNormal];
-        return;
-    }
-    //扬声器模式
-    [self.playbackButton setTitle:@"Speaker" forState:UIControlStateNormal];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if([self.speex.playCategory isEqualToString:AVAudioSessionCategoryPlayback])
+        {
+            //听筒模式
+            [self.playbackButton setTitle:@"Playback" forState:UIControlStateNormal];
+            return;
+        }
+        if([self.speex.playCategory isEqualToString:AVAudioSessionCategoryPlayAndRecord])
+        {
+            //扬声器模式
+            [self.playbackButton setTitle:@"PlayAndRecord" forState:UIControlStateNormal];
+            return;
+        }
+        //未知模式
+        [self.playbackButton setTitle:@"Unkown" forState:UIControlStateNormal];
+    });
 }
 
 

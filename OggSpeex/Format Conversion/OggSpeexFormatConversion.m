@@ -28,7 +28,7 @@
     return [[[self class] alloc]init];
 }
 
-+ (BOOL)conversionFileName:(NSString *)intput outPutFileName:(NSString *)output error:(NSError **)error
++ (BOOL)conversionInputFile:(NSString *)intput outputFile:(NSString *)output error:(NSError **)error
 {
     return NO;
 }
@@ -113,7 +113,7 @@
                 {
                     if(error != NULL)
                     {
-                        *error = [NSError errorWithDomain:OggSpeexFormatConversionDomain code:1 userInfo:@{@"description":@"ogg_stream_pagein failure"}];
+                        *error = [NSError errorWithDomain:OggSpeexFormatConversionDomain code:OggSpeexFormatConversion_StreamPageinError userInfo:@{@"description":@"ogg_stream_pagein failure"}];
                     }
                     
                     return nil;
@@ -177,7 +177,7 @@
     {
         if(error != NULL)
         {
-             *error = [NSError errorWithDomain:OggSpeexFormatConversionDomain code:1 userInfo:@{@"description":@"ogg文件未解析到pcm数据"}];
+             *error = [NSError errorWithDomain:OggSpeexFormatConversionDomain code:OggSpeexFormatConversion_FoundNoPCM userInfo:@{@"description":@"Found no pcm data in ogg file."}];
         }
         return nil;
     }

@@ -18,17 +18,7 @@
 
 @end
 
-@interface Decapsulator : NSObject {
-    NSString *mFileName;
-    
-    BOOL isPlaying;
-    
-    NSOperationQueue *operationQueue;
-    
-    ogg_stream_state oggStreamState;
-    ogg_sync_state oggSyncState;
-    int packetNo;
-}
+@interface Decapsulator : NSObject 
 
 @property (atomic, strong) RawAudioDataPlayer *player;
 @property (nonatomic, weak) id<DecapsulatingDelegate> delegate;
@@ -37,6 +27,8 @@
 - (id)initWithFileName:(NSString *)filename;
 
 - (void)play;
+
+- (BOOL)isPlaying;
 
 - (void)stopPlaying;
 

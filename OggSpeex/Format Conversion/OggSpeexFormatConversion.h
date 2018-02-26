@@ -10,6 +10,15 @@
 
 #define OggSpeexFormatConversionDomain (@"com.oggspeex.speexformatconversion")
 
+typedef NS_ENUM(NSInteger, OggSpeexFormatConversion_ErrorCode)
+{
+    OggSpeexFormatConversion_StreamPageinError = 20170109777, // ogg stream page in failed.;
+    OggSpeexFormatConversion_FoundNoPCM , // found no pcm data in ogg file.;
+    OggSpeexFormatConversion_InputFileNameError ,
+    OggSpeexFormatConversion_OutputFileCreateFailed ,
+    OggSpeexFormatConversion_OutputFileWriteFailed ,
+};
+
 @interface OggSpeexFormatConversion : NSObject
 
 + (instancetype)conversion;
@@ -17,6 +26,6 @@
 //将ogg格式数据转换为pcm数据
 - (NSData *)convertOggSppexToPCMWithData:(NSData *)oggSpeexData error:(NSError **)error;
 
-+ (BOOL)conversionFileName:(NSString *)intput outPutFileName:(NSString *)output error:(NSError **)error;
++ (BOOL)conversionInputFile:(NSString *)intput outputFile:(NSString *)output error:(NSError **)error;
 
 @end

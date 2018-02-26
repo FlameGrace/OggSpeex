@@ -7,14 +7,15 @@
 //
 
 #import "OggSpeexManager.h"
-#import "PlayerManager.h"
-#import "RecorderManager.h"
-#import "AVAudioSessionPlayCateGoryTool.h"
+#import "OggSpeexPlayer.h"
+#import "OggSpeexRecorder.h"
+#import "AudioSessionNotificationTool.h"
+#import "ProximityMoniteringTool.h"
 
-@interface OggSpeexManager() <RecordingDelegate, PlayingDelegate>
+@interface OggSpeexManager()
 
-//因为录音时必定设置为听筒模式，因此需要记录在录音前的模式，在录音后将其设置回来
-@property (strong, nonatomic) NSString *lastPlayCategory;
+@property (strong, nonatomic) OggSpeexPlayer *player;
+@property (strong, nonatomic) OggSpeexRecorder *recorder;
 
 @end
 
@@ -37,191 +38,109 @@ static OggSpeexManager *shareManager = nil;
 {
     if(self = [super init])
     {
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playCategoryChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
-        [PlayerManager sharedManager];
-        [RecorderManager sharedManager];
+        self.player = [[OggSpeexPlayer alloc]init];
+        self.recorder = [[OggSpeexRecorder alloc]init];
     }
     return self;
 }
 
-- (void)dealloc
+- (void)setDelegate:(id<OggSpeexManagerDelegate>)delegate
 {
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-}
-
-#pragma mark - Recording & Playing Delegate
-
-- (void)playCategoryChanged:(NSNotification *)notification
-{
-    NSNumber *reasonKey = notification.userInfo[AVAudioSessionRouteChangeReasonKey];
-    if(reasonKey.longValue == 3)
+    if(!_delegate)
     {
-        if([self.delegate respondsToSelector:@selector(speexManagerPlayCategoryChanged:)])
-        {
-            [self.delegate speexManagerPlayCategoryChanged:self];
-        }
+        self.player.delegate = delegate;
+        self.recorder.delegate = delegate;
     }
+    _delegate = delegate;
 }
 
-- (void)recordingFinishedWithFileName:(NSString *)filePath time:(NSTimeInterval)interval {
-    if([self.delegate respondsToSelector:@selector(speexManager:didRecordSuccessfulWithFileName:time:)])
-    {
-        [self.delegate speexManager:self didRecordSuccessfulWithFileName:filePath time:interval];
-    }
-}
 
-- (void)recordingTimeout {
-    if([self.delegate respondsToSelector:@selector(speexManagerDidRecordTimeout:)])
-    {
-        [self.delegate speexManagerDidRecordTimeout:self];
-    }
-}
-
-- (void)switchToLastCategory
+- (void)setAutoSwitchPlayCateGory:(BOOL)autoSwitchPlayCateGory
 {
-    if(self.lastPlayCategory && [self.lastPlayCategory isEqualToString:AVAudioSessionCategoryPlayback])
-    {
-        [AVAudioSessionPlayCateGoryTool switchToPlayback];
-    }
+    self.player.autoSwitchPlayCateGory = autoSwitchPlayCateGory;
 }
 
-- (void)recordingStopped {
-    
-    [self switchToLastCategory];
-    if([self.delegate respondsToSelector:@selector(speexManagerDidStopRecord:)])
-    {
-        [self.delegate speexManagerDidStopRecord:self];
-    }
-}
-
-- (void)recordingFailed:(NSString *)failureInfoString {
-    [self switchToLastCategory];
-    if([self.delegate respondsToSelector:@selector(speexManager:didRecordFailure:)])
-    {
-        [self.delegate speexManager:self didRecordFailure:failureInfoString];
-    }
-}
-
-- (void)levelMeterChanged:(float)levelMeter
+- (BOOL)autoSwitchPlayCateGory
 {
-    if([self.delegate respondsToSelector:@selector(speexManager:recordingLeverMeterUpdated:)])
-    {
-        [self.delegate speexManager:self recordingLeverMeterUpdated:levelMeter];
-    }
-}
-
-- (void)recorderTimeChanged:(NSTimeInterval)time
-{
-    if([self.delegate respondsToSelector:@selector(speexManager:recordingTimeUpdated:)])
-    {
-        [self.delegate speexManager:self recordingTimeUpdated:time];
-    }
-}
-
-- (void)playingStoped {
-    
-    if([self.delegate respondsToSelector:@selector(speexManagerDidStopPlay:)])
-    {
-        [self.delegate speexManagerDidStopPlay:self];
-    }
-}
-
-- (void)didAwayDevice
-{
-    if([self.delegate respondsToSelector:@selector(speexManagerDidFarAwayToDevice:)])
-    {
-        [self.delegate speexManagerDidFarAwayToDevice:self];
-    }
-}
-
-- (void)didProximityDevice
-{
-    if([self.delegate respondsToSelector:@selector(speexManagerDidCloseToDevice:)])
-    {
-        [self.delegate speexManagerDidCloseToDevice:self];
-    }
-}
-
-
-#pragma private function
-
-- (void)setMaxRecorderDuration:(NSTimeInterval)maxRecorderDuration
-{
-    [RecorderManager sharedManager].maxRecorderDuration = maxRecorderDuration;
-}
-
-- (void)playAudioWithFilePath:(NSString *)filePath
-{
-    @synchronized (self) {
-        if (self.isRecording) {
-            [self stopRecording];
-        }
-        
-        if ( ! self.isPlaying) {
-            [PlayerManager sharedManager].delegate = nil;
-            [[PlayerManager sharedManager] playAudioWithFileName:filePath delegate:self];
-        }
-    }
-}
-
-- (void)stopPlaying
-{
-    @synchronized (self) {
-        if (!self.isPlaying) {
-            return;
-        }
-        [[PlayerManager sharedManager] stopPlaying];
-    }
-}
-
-- (void)startRecordingInFilePath:(NSString *)filePath
-{
-    @synchronized (self) {
-        
-        self.lastPlayCategory = [AVAudioSessionPlayCateGoryTool.category copy];
-        if (self.isPlaying)
-        {
-            [self stopPlaying];
-        }
-        if (!self.isRecording)
-        {
-            [RecorderManager sharedManager].delegate = self;
-            [[RecorderManager sharedManager] startRecordingInFilePath:filePath];
-        }
-    }
-}
-
-- (void)stopRecording
-{
-    @synchronized (self) {
-        if(!self.isRecording)
-        {
-            return;
-        }
-        
-        [[RecorderManager sharedManager] stopRecording];
-    }
-}
-
-- (void)cancelRecording
-{
-    @synchronized (self) {
-        if(!self.isRecording)
-        {
-            return;
-        }
-        [[RecorderManager sharedManager] cancelRecording];
-    }
-}
-
-- (BOOL)isRecording
-{
-    return [RecorderManager sharedManager].isRecording;
+    return self.player.autoSwitchPlayCateGory;
 }
 
 - (BOOL)isPlaying
 {
-    return [PlayerManager sharedManager].isPlaying;
+    return self.player.isPlaying;
+}
+- (BOOL)proximityState
+{
+    return self.player.proximityState;
+}
+
+- (void)setMaxRecordDuration:(NSTimeInterval)maxRecordDuration
+{
+    self.recorder.maxRecordDuration = maxRecordDuration;
+}
+
+- (NSTimeInterval)maxRecordDuration
+{
+    return self.recorder.maxRecordDuration;
+}
+
+- (BOOL)isRecording
+{
+    return self.recorder.isRecording;
+}
+
+- (NSTimeInterval)recordDuration
+{
+    return self.recorder.recordDuration;
+}
+
+
+- (void)playAudioFile:(NSString *)filePath
+{
+    @synchronized (self)
+    {
+        if (self.isRecording)
+        {
+            [self.recorder stopRecord];
+        }
+        [self.player playAudioFile:filePath newDelegate:self.delegate];
+    }
+}
+
+- (void)stopPlay
+{
+    @synchronized (self)
+    {
+        [self.player stopPlay];
+    }
+}
+
+- (void)startRecordInFilePath:(NSString *)filePath
+{
+    @synchronized (self)
+    {
+        if (self.isPlaying)
+        {
+            [self.player stopPlay];
+        }
+        [self.recorder startRecordInFilePath:filePath newDelegate:self.delegate];
+    }
+}
+
+- (void)stopRecord
+{
+    @synchronized (self)
+    {
+        [self.recorder stopRecord];
+    }
+}
+
+- (void)cancelRecord
+{
+    @synchronized (self)
+    {
+        [self.recorder cancelRecord];
+    }
 }
 
 - (NSString *)playCategory

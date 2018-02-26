@@ -43,27 +43,33 @@ typedef struct tagHXD_WAVFLIEHEAD HXD_WAVFLIEHEAD;
 
 @implementation OggSpeexWavConversion
 
-+ (BOOL)conversionFileName:(NSString *)intput outPutFileName:(NSString *)output error:(NSError *__autoreleasing *)error
++ (BOOL)conversionInputFile:(NSString *)intput outputFile:(NSString *)output error:(NSError **)error
 {
     
     NSData *oggData = [NSData dataWithContentsOfFile:intput];
-    if(!oggData.length)
+    if(!oggData|| oggData.length < 1)
     {
-        *error = [NSError errorWithDomain:OggSpeexFormatConversionDomain code:1 userInfo:@{@"description":@"输入文件为空，请检查路径"}];
+        if(error != NULL)
+        {
+            *error = [NSError errorWithDomain:OggSpeexFormatConversionDomain code:OggSpeexFormatConversion_InputFileNameError userInfo:@{@"description":@"Input file path error"}];
+        }
         return NO;
     }
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if(![fileManager createFileAtPath:output contents:nil attributes:nil])
     {
-        *error = [NSError errorWithDomain:OggSpeexFormatConversionDomain code:1 userInfo:@{@"description":@"输出文件创建失败，请检查路径"}];
+        if(error != NULL)
+        {
+            *error = [NSError errorWithDomain:OggSpeexFormatConversionDomain code:OggSpeexFormatConversion_OutputFileCreateFailed userInfo:@{@"description":@"Output file create failed"}];
+        }
         return NO;
     }
     
     
     OggSpeexWavConversion *conversion = [OggSpeexWavConversion conversion];
     
-    NSData *pcmData = [conversion convertOggSppexToPCMWithData:oggData error:nil];
+    NSData *pcmData = [conversion convertOggSppexToPCMWithData:oggData error:error];
     if(pcmData == nil)
     {
         return NO;
@@ -124,7 +130,10 @@ typedef struct tagHXD_WAVFLIEHEAD HXD_WAVFLIEHEAD;
     NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:output];
     if(!handle)
     {
-        *error = [NSError errorWithDomain:OggSpeexFormatConversionDomain code:1 userInfo:@{@"description":@"输出文件写入失败，请检查路径"}];
+        if(error != NULL)
+        {
+            *error = [NSError errorWithDomain:OggSpeexFormatConversionDomain code:OggSpeexFormatConversion_OutputFileWriteFailed userInfo:@{@"description":@"Output file write failed."}];
+        }
         return NO;
     }
     NSData *headerData = [NSData dataWithBytes:header length:44];

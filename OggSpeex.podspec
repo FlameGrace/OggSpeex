@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/FlameGrace/OggSpeex.git", :tag => "0.0.1" }
 
-  s.source_files  = "OggSpeex","**/*.{h,m,mm}"
+  s.source_files  = "OggSpeex/OggSpeex","**/*.{h,m,mm}"
   s.public_header_files = "**/*.h"
 
   s.homepage     = "flamegrace@hotmail"
@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
 
   s.framework  = "OggSpeex"
   s.xcconfig = { 
-    'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/OggSpeex/"',
+    'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/OggSpeex/OggSpeex"',
     'GCC_PREPROCESSOR_DEFINITIONS' => ''
   }
 

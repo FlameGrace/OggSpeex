@@ -1,9 +1,9 @@
 //
 //  LMSpeexFormatConversion.m
-//  flamegrace@hotmail.com
+//  flamegrace
 //
-//  Created by Flame Grace on 17/1/9.
-//  Copyright © 2017年 flamegrace@hotmail.com. All rights reserved.
+//  Created by flamegrace on 17/1/9.
+//  Copyright © 2017年 flamegrace. All rights reserved.
 //
 
 #import "OggSpeexFormatConversion.h"
@@ -129,7 +129,7 @@
                     int packetResult = ogg_stream_packetout(&oggStreamState, &oggPacket);
                     if (packetResult == 1) {
                         //decode speex
-                        //                        NSLog(@"to decode a packet");
+                        NSLog(@"to decode a packet");
                         packetNo ++;
                         int nDecodedByte = sizeof(short) * [codec decode:oggPacket.packet length:(int)oggPacket.bytes output:decodedBuffer];
                         decodedByteLength += nDecodedByte;

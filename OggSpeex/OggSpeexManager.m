@@ -1,9 +1,9 @@
 //
 //  LMSpeexManager.m
-//  flamegrace@hotmail.com
+//  flamegrace
 //
-//  Created by Flame Grace on 16/12/21.
-//  Copyright © 2016年 flamegrace@hotmail.com. All rights reserved.
+//  Created by flamegrace on 16/12/21.
+//  Copyright © 2016年 flamegrace. All rights reserved.
 //
 
 #import "OggSpeexManager.h"
@@ -12,10 +12,12 @@
 #import "AudioSessionNotificationTool.h"
 #import "ProximityMoniteringTool.h"
 
-@interface OggSpeexManager()
+@interface OggSpeexManager() <AudioSessionNotificationToolDelegate,ProximityMoniteringToolDelegate>
 
 @property (strong, nonatomic) OggSpeexPlayer *player;
 @property (strong, nonatomic) OggSpeexRecorder *recorder;
+@property (nonatomic, strong) AudioSessionNotificationTool *audioTool;
+@property (nonatomic, strong) ProximityMoniteringTool *proximityTool;
 
 @end
 
@@ -38,20 +40,38 @@ static OggSpeexManager *shareManager = nil;
 {
     if(self = [super init])
     {
+        self.audioTool = [[AudioSessionNotificationTool alloc]init];
+        self.audioTool.delegate = self;
+        [self.audioTool startListen];
+        self.proximityTool = [[ProximityMoniteringTool alloc]init];
+        self.proximityTool.delegate = self;
         self.player = [[OggSpeexPlayer alloc]init];
         self.recorder = [[OggSpeexRecorder alloc]init];
     }
     return self;
 }
-
-- (void)setDelegate:(id<OggSpeexManagerDelegate>)delegate
+- (void)proximityMoniteringToolStateChange:(ProximityMoniteringTool *)tool
 {
-    if(!_delegate)
+    if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeex:proximityDeviceStateChanged:)])
     {
-        self.player.delegate = delegate;
-        self.recorder.delegate = delegate;
+        [self.delegate oggSpeex:self proximityDeviceStateChanged:tool.proximityState];
     }
-    _delegate = delegate;
+}
+
+- (void)audioSessionNotificationTool:(AudioSessionNotificationTool *)tool audioSessionRouteChange:(NSUInteger)reason
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeex:audioSessionRouteChange:)])
+    {
+        [self.delegate oggSpeex:self audioSessionRouteChange:reason];
+    }
+}
+
+- (void)audioSessionNotificationTool:(AudioSessionNotificationTool *)tool audioSessionInterruption:(NSUInteger)type
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeex:audioSessionInterruption:)])
+    {
+        [self.delegate oggSpeex:self audioSessionInterruption:type];
+    }
 }
 
 

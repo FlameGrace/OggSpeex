@@ -3,7 +3,7 @@
 //  SimpleProject
 //
 //  Created by MAC on 2018/2/7.
-//  Copyright © 2018年 com.flamegrace. All rights reserved.
+//  Copyright © 2018年 flamegrace@hotmail.com. All rights reserved.
 //
 
 #import "AudioSessionNotificationTool.h"

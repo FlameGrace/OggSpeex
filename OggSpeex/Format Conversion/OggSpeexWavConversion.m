@@ -1,9 +1,9 @@
 //
 //  LMSpeexWavConversion.m
-//  flamegrace@hotmail.com
+//  flamegrace
 //
-//  Created by Flame Grace on 17/1/9.
-//  Copyright © 2017年 flamegrace@hotmail.com. All rights reserved.
+//  Created by flamegrace on 17/1/9.
+//  Copyright © 2017年 flamegrace. All rights reserved.
 //
 
 #import "OggSpeexWavConversion.h"

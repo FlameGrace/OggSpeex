@@ -1,9 +1,9 @@
 //
 //  LMSpeexManager.h
-//  flamegrace@hotmail.com
+//  flamegrace
 //
-//  Created by Flame Grace on 16/12/21.
-//  Copyright © 2016年 flamegrace@hotmail.com. All rights reserved.
+//  Created by flamegrace on 16/12/21.
+//  Copyright © 2016年 flamegrace. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

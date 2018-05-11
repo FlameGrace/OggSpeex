@@ -9,26 +9,6 @@
 /* Begin PBXBuildFile section */
 		0422ABFB202B1F510085C2A4 /* PlayerDelegater.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422ABFA202B1F510085C2A4 /* PlayerDelegater.m */; };
 		0422ABFE202B1F730085C2A4 /* RecorderDelegater.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422ABFD202B1F730085C2A4 /* RecorderDelegater.m */; };
-		0422AC42202C17010085C2A4 /* AQRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC05202C17010085C2A4 /* AQRecorder.mm */; };
-		0422AC43202C17010085C2A4 /* AudioSessionNotificationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC07202C17010085C2A4 /* AudioSessionNotificationTool.m */; };
-		0422AC44202C17010085C2A4 /* AVAudioSessionPlayCateGoryTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC09202C17010085C2A4 /* AVAudioSessionPlayCateGoryTool.m */; };
-		0422AC45202C17010085C2A4 /* Decapsulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC0B202C17010085C2A4 /* Decapsulator.m */; };
-		0422AC46202C17010085C2A4 /* Encapsulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC0D202C17010085C2A4 /* Encapsulator.m */; };
-		0422AC47202C17010085C2A4 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422AC0F202C17010085C2A4 /* libogg.a */; };
-		0422AC48202C17010085C2A4 /* libspeex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422AC10202C17010085C2A4 /* libspeex.a */; };
-		0422AC49202C17010085C2A4 /* libspeexdsp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422AC11202C17010085C2A4 /* libspeexdsp.a */; };
-		0422AC4A202C17010085C2A4 /* speexdsp_config_types.h.in in Resources */ = {isa = PBXBuildFile; fileRef = 0422AC25202C17010085C2A4 /* speexdsp_config_types.h.in */; };
-		0422AC4B202C17010085C2A4 /* ProximityMoniteringTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC28202C17010085C2A4 /* ProximityMoniteringTool.m */; };
-		0422AC4C202C17010085C2A4 /* CADebugMacros.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC2B202C17010085C2A4 /* CADebugMacros.mm */; };
-		0422AC4D202C17010085C2A4 /* CAStreamBasicDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC2E202C17010085C2A4 /* CAStreamBasicDescription.mm */; };
-		0422AC4E202C17010085C2A4 /* CAXException.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC30202C17010085C2A4 /* CAXException.mm */; };
-		0422AC4F202C17010085C2A4 /* RawAudioDataPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC32202C17010085C2A4 /* RawAudioDataPlayer.m */; };
-		0422AC50202C17010085C2A4 /* SpeexCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC35202C17010085C2A4 /* SpeexCodec.m */; };
-		0422AC51202C17010085C2A4 /* OggSpeexFormatConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC38202C17010085C2A4 /* OggSpeexFormatConversion.m */; };
-		0422AC52202C17010085C2A4 /* OggSpeexWavConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC3A202C17010085C2A4 /* OggSpeexWavConversion.m */; };
-		0422AC53202C17010085C2A4 /* OggSpeexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC3C202C17010085C2A4 /* OggSpeexManager.m */; };
-		0422AC54202C17010085C2A4 /* OggSpeexPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC3E202C17010085C2A4 /* OggSpeexPlayer.m */; };
-		0422AC55202C17010085C2A4 /* OggSpeexRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0422AC41202C17010085C2A4 /* OggSpeexRecorder.mm */; };
 		21A1CEB2B1E6B131D6C20F97 /* libPods-SimpleProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 249898F8156374B511EA49F0 /* libPods-SimpleProject.a */; };
 		862611021F5652D600118D66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 862611011F5652D600118D66 /* main.m */; };
 		862611051F5652D600118D66 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 862611041F5652D600118D66 /* AppDelegate.m */; };
@@ -63,62 +43,6 @@
 		0422ABFC202B1F730085C2A4 /* RecorderDelegater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecorderDelegater.h; sourceTree = "<group>"; };
 		0422ABFD202B1F730085C2A4 /* RecorderDelegater.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecorderDelegater.m; sourceTree = "<group>"; };
 		0422ABFF202B21DF0085C2A4 /* DelegaterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DelegaterProtocol.h; sourceTree = "<group>"; };
-		0422AC04202C17010085C2A4 /* AQRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQRecorder.h; sourceTree = "<group>"; };
-		0422AC05202C17010085C2A4 /* AQRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQRecorder.mm; sourceTree = "<group>"; };
-		0422AC06202C17010085C2A4 /* AudioSessionNotificationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioSessionNotificationTool.h; sourceTree = "<group>"; };
-		0422AC07202C17010085C2A4 /* AudioSessionNotificationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioSessionNotificationTool.m; sourceTree = "<group>"; };
-		0422AC08202C17010085C2A4 /* AVAudioSessionPlayCateGoryTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVAudioSessionPlayCateGoryTool.h; sourceTree = "<group>"; };
-		0422AC09202C17010085C2A4 /* AVAudioSessionPlayCateGoryTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVAudioSessionPlayCateGoryTool.m; sourceTree = "<group>"; };
-		0422AC0A202C17010085C2A4 /* Decapsulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decapsulator.h; sourceTree = "<group>"; };
-		0422AC0B202C17010085C2A4 /* Decapsulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Decapsulator.m; sourceTree = "<group>"; };
-		0422AC0C202C17010085C2A4 /* Encapsulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encapsulator.h; sourceTree = "<group>"; };
-		0422AC0D202C17010085C2A4 /* Encapsulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Encapsulator.m; sourceTree = "<group>"; };
-		0422AC0F202C17010085C2A4 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libogg.a; sourceTree = "<group>"; };
-		0422AC10202C17010085C2A4 /* libspeex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libspeex.a; sourceTree = "<group>"; };
-		0422AC11202C17010085C2A4 /* libspeexdsp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libspeexdsp.a; sourceTree = "<group>"; };
-		0422AC13202C17010085C2A4 /* config_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config_types.h; sourceTree = "<group>"; };
-		0422AC14202C17010085C2A4 /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ogg.h; sourceTree = "<group>"; };
-		0422AC15202C17010085C2A4 /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os_types.h; sourceTree = "<group>"; };
-		0422AC17202C17010085C2A4 /* speex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex.h; sourceTree = "<group>"; };
-		0422AC18202C17010085C2A4 /* speex_bits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_bits.h; sourceTree = "<group>"; };
-		0422AC19202C17010085C2A4 /* speex_callbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_callbacks.h; sourceTree = "<group>"; };
-		0422AC1A202C17010085C2A4 /* speex_config_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_config_types.h; sourceTree = "<group>"; };
-		0422AC1B202C17010085C2A4 /* speex_header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_header.h; sourceTree = "<group>"; };
-		0422AC1C202C17010085C2A4 /* speex_stereo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_stereo.h; sourceTree = "<group>"; };
-		0422AC1D202C17010085C2A4 /* speex_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_types.h; sourceTree = "<group>"; };
-		0422AC1F202C17010085C2A4 /* speex_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_buffer.h; sourceTree = "<group>"; };
-		0422AC20202C17010085C2A4 /* speex_echo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_echo.h; sourceTree = "<group>"; };
-		0422AC21202C17010085C2A4 /* speex_jitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_jitter.h; sourceTree = "<group>"; };
-		0422AC22202C17010085C2A4 /* speex_preprocess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_preprocess.h; sourceTree = "<group>"; };
-		0422AC23202C17010085C2A4 /* speex_resampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_resampler.h; sourceTree = "<group>"; };
-		0422AC24202C17010085C2A4 /* speexdsp_config_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speexdsp_config_types.h; sourceTree = "<group>"; };
-		0422AC25202C17010085C2A4 /* speexdsp_config_types.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = speexdsp_config_types.h.in; sourceTree = "<group>"; };
-		0422AC26202C17010085C2A4 /* speexdsp_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speexdsp_types.h; sourceTree = "<group>"; };
-		0422AC27202C17010085C2A4 /* ProximityMoniteringTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProximityMoniteringTool.h; sourceTree = "<group>"; };
-		0422AC28202C17010085C2A4 /* ProximityMoniteringTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProximityMoniteringTool.m; sourceTree = "<group>"; };
-		0422AC2A202C17010085C2A4 /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
-		0422AC2B202C17010085C2A4 /* CADebugMacros.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CADebugMacros.mm; sourceTree = "<group>"; };
-		0422AC2C202C17010085C2A4 /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
-		0422AC2D202C17010085C2A4 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
-		0422AC2E202C17010085C2A4 /* CAStreamBasicDescription.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CAStreamBasicDescription.mm; sourceTree = "<group>"; };
-		0422AC2F202C17010085C2A4 /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
-		0422AC30202C17010085C2A4 /* CAXException.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CAXException.mm; sourceTree = "<group>"; };
-		0422AC31202C17010085C2A4 /* RawAudioDataPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RawAudioDataPlayer.h; sourceTree = "<group>"; };
-		0422AC32202C17010085C2A4 /* RawAudioDataPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RawAudioDataPlayer.m; sourceTree = "<group>"; };
-		0422AC33202C17010085C2A4 /* SpeexAllHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeexAllHeaders.h; sourceTree = "<group>"; };
-		0422AC34202C17010085C2A4 /* SpeexCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeexCodec.h; sourceTree = "<group>"; };
-		0422AC35202C17010085C2A4 /* SpeexCodec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeexCodec.m; sourceTree = "<group>"; };
-		0422AC37202C17010085C2A4 /* OggSpeexFormatConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OggSpeexFormatConversion.h; sourceTree = "<group>"; };
-		0422AC38202C17010085C2A4 /* OggSpeexFormatConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OggSpeexFormatConversion.m; sourceTree = "<group>"; };
-		0422AC39202C17010085C2A4 /* OggSpeexWavConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OggSpeexWavConversion.h; sourceTree = "<group>"; };
-		0422AC3A202C17010085C2A4 /* OggSpeexWavConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OggSpeexWavConversion.m; sourceTree = "<group>"; };
-		0422AC3B202C17010085C2A4 /* OggSpeexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OggSpeexManager.h; sourceTree = "<group>"; };
-		0422AC3C202C17010085C2A4 /* OggSpeexManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OggSpeexManager.m; sourceTree = "<group>"; };
-		0422AC3D202C17010085C2A4 /* OggSpeexPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OggSpeexPlayer.h; sourceTree = "<group>"; };
-		0422AC3E202C17010085C2A4 /* OggSpeexPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OggSpeexPlayer.m; sourceTree = "<group>"; };
-		0422AC3F202C17010085C2A4 /* OggSpeexProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OggSpeexProtocol.h; sourceTree = "<group>"; };
-		0422AC40202C17010085C2A4 /* OggSpeexRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OggSpeexRecorder.h; sourceTree = "<group>"; };
-		0422AC41202C17010085C2A4 /* OggSpeexRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OggSpeexRecorder.mm; sourceTree = "<group>"; };
 		249898F8156374B511EA49F0 /* libPods-SimpleProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		862610FD1F5652D600118D66 /* SimpleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		862611011F5652D600118D66 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -146,9 +70,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				21A1CEB2B1E6B131D6C20F97 /* libPods-SimpleProject.a in Frameworks */,
-				0422AC48202C17010085C2A4 /* libspeex.a in Frameworks */,
-				0422AC47202C17010085C2A4 /* libogg.a in Frameworks */,
-				0422AC49202C17010085C2A4 /* libspeexdsp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,126 +90,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0422AC02202C17000085C2A4 /* OggSpeex */ = {
-			isa = PBXGroup;
-			children = (
-				0422AC03202C17010085C2A4 /* Classes */,
-				0422AC36202C17010085C2A4 /* Format Conversion */,
-				0422AC3B202C17010085C2A4 /* OggSpeexManager.h */,
-				0422AC3C202C17010085C2A4 /* OggSpeexManager.m */,
-				0422AC3D202C17010085C2A4 /* OggSpeexPlayer.h */,
-				0422AC3E202C17010085C2A4 /* OggSpeexPlayer.m */,
-				0422AC3F202C17010085C2A4 /* OggSpeexProtocol.h */,
-				0422AC40202C17010085C2A4 /* OggSpeexRecorder.h */,
-				0422AC41202C17010085C2A4 /* OggSpeexRecorder.mm */,
-			);
-			name = OggSpeex;
-			path = ../../OggSpeex;
-			sourceTree = "<group>";
-		};
-		0422AC03202C17010085C2A4 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				0422AC04202C17010085C2A4 /* AQRecorder.h */,
-				0422AC05202C17010085C2A4 /* AQRecorder.mm */,
-				0422AC06202C17010085C2A4 /* AudioSessionNotificationTool.h */,
-				0422AC07202C17010085C2A4 /* AudioSessionNotificationTool.m */,
-				0422AC08202C17010085C2A4 /* AVAudioSessionPlayCateGoryTool.h */,
-				0422AC09202C17010085C2A4 /* AVAudioSessionPlayCateGoryTool.m */,
-				0422AC0A202C17010085C2A4 /* Decapsulator.h */,
-				0422AC0B202C17010085C2A4 /* Decapsulator.m */,
-				0422AC0C202C17010085C2A4 /* Encapsulator.h */,
-				0422AC0D202C17010085C2A4 /* Encapsulator.m */,
-				0422AC0E202C17010085C2A4 /* lib */,
-				0422AC27202C17010085C2A4 /* ProximityMoniteringTool.h */,
-				0422AC28202C17010085C2A4 /* ProximityMoniteringTool.m */,
-				0422AC29202C17010085C2A4 /* PublicUtility */,
-				0422AC31202C17010085C2A4 /* RawAudioDataPlayer.h */,
-				0422AC32202C17010085C2A4 /* RawAudioDataPlayer.m */,
-				0422AC33202C17010085C2A4 /* SpeexAllHeaders.h */,
-				0422AC34202C17010085C2A4 /* SpeexCodec.h */,
-				0422AC35202C17010085C2A4 /* SpeexCodec.m */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		0422AC0E202C17010085C2A4 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				0422AC0F202C17010085C2A4 /* libogg.a */,
-				0422AC10202C17010085C2A4 /* libspeex.a */,
-				0422AC11202C17010085C2A4 /* libspeexdsp.a */,
-				0422AC12202C17010085C2A4 /* ogg */,
-				0422AC16202C17010085C2A4 /* speex */,
-				0422AC1E202C17010085C2A4 /* speexdsp */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
-		0422AC12202C17010085C2A4 /* ogg */ = {
-			isa = PBXGroup;
-			children = (
-				0422AC13202C17010085C2A4 /* config_types.h */,
-				0422AC14202C17010085C2A4 /* ogg.h */,
-				0422AC15202C17010085C2A4 /* os_types.h */,
-			);
-			path = ogg;
-			sourceTree = "<group>";
-		};
-		0422AC16202C17010085C2A4 /* speex */ = {
-			isa = PBXGroup;
-			children = (
-				0422AC17202C17010085C2A4 /* speex.h */,
-				0422AC18202C17010085C2A4 /* speex_bits.h */,
-				0422AC19202C17010085C2A4 /* speex_callbacks.h */,
-				0422AC1A202C17010085C2A4 /* speex_config_types.h */,
-				0422AC1B202C17010085C2A4 /* speex_header.h */,
-				0422AC1C202C17010085C2A4 /* speex_stereo.h */,
-				0422AC1D202C17010085C2A4 /* speex_types.h */,
-			);
-			path = speex;
-			sourceTree = "<group>";
-		};
-		0422AC1E202C17010085C2A4 /* speexdsp */ = {
-			isa = PBXGroup;
-			children = (
-				0422AC1F202C17010085C2A4 /* speex_buffer.h */,
-				0422AC20202C17010085C2A4 /* speex_echo.h */,
-				0422AC21202C17010085C2A4 /* speex_jitter.h */,
-				0422AC22202C17010085C2A4 /* speex_preprocess.h */,
-				0422AC23202C17010085C2A4 /* speex_resampler.h */,
-				0422AC24202C17010085C2A4 /* speexdsp_config_types.h */,
-				0422AC25202C17010085C2A4 /* speexdsp_config_types.h.in */,
-				0422AC26202C17010085C2A4 /* speexdsp_types.h */,
-			);
-			path = speexdsp;
-			sourceTree = "<group>";
-		};
-		0422AC29202C17010085C2A4 /* PublicUtility */ = {
-			isa = PBXGroup;
-			children = (
-				0422AC2A202C17010085C2A4 /* CADebugMacros.h */,
-				0422AC2B202C17010085C2A4 /* CADebugMacros.mm */,
-				0422AC2C202C17010085C2A4 /* CAMath.h */,
-				0422AC2D202C17010085C2A4 /* CAStreamBasicDescription.h */,
-				0422AC2E202C17010085C2A4 /* CAStreamBasicDescription.mm */,
-				0422AC2F202C17010085C2A4 /* CAXException.h */,
-				0422AC30202C17010085C2A4 /* CAXException.mm */,
-			);
-			path = PublicUtility;
-			sourceTree = "<group>";
-		};
-		0422AC36202C17010085C2A4 /* Format Conversion */ = {
-			isa = PBXGroup;
-			children = (
-				0422AC37202C17010085C2A4 /* OggSpeexFormatConversion.h */,
-				0422AC38202C17010085C2A4 /* OggSpeexFormatConversion.m */,
-				0422AC39202C17010085C2A4 /* OggSpeexWavConversion.h */,
-				0422AC3A202C17010085C2A4 /* OggSpeexWavConversion.m */,
-			);
-			path = "Format Conversion";
-			sourceTree = "<group>";
-		};
 		862610F41F5652D500118D66 = {
 			isa = PBXGroup;
 			children = (
@@ -314,7 +115,6 @@
 		862610FF1F5652D600118D66 /* SimpleProject */ = {
 			isa = PBXGroup;
 			children = (
-				0422AC02202C17000085C2A4 /* OggSpeex */,
 				862611031F5652D600118D66 /* AppDelegate.h */,
 				862611041F5652D600118D66 /* AppDelegate.m */,
 				862611061F5652D600118D66 /* ViewController.h */,
@@ -490,7 +290,6 @@
 			files = (
 				862611101F5652D600118D66 /* LaunchScreen.storyboard in Resources */,
 				8626110D1F5652D600118D66 /* Assets.xcassets in Resources */,
-				0422AC4A202C17010085C2A4 /* speexdsp_config_types.h.in in Resources */,
 				8626110B1F5652D600118D66 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -568,25 +367,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				862611081F5652D600118D66 /* ViewController.m in Sources */,
-				0422AC43202C17010085C2A4 /* AudioSessionNotificationTool.m in Sources */,
 				0422ABFB202B1F510085C2A4 /* PlayerDelegater.m in Sources */,
 				862611051F5652D600118D66 /* AppDelegate.m in Sources */,
-				0422AC4C202C17010085C2A4 /* CADebugMacros.mm in Sources */,
-				0422AC4B202C17010085C2A4 /* ProximityMoniteringTool.m in Sources */,
-				0422AC4E202C17010085C2A4 /* CAXException.mm in Sources */,
-				0422AC45202C17010085C2A4 /* Decapsulator.m in Sources */,
-				0422AC44202C17010085C2A4 /* AVAudioSessionPlayCateGoryTool.m in Sources */,
-				0422AC51202C17010085C2A4 /* OggSpeexFormatConversion.m in Sources */,
-				0422AC52202C17010085C2A4 /* OggSpeexWavConversion.m in Sources */,
-				0422AC42202C17010085C2A4 /* AQRecorder.mm in Sources */,
-				0422AC55202C17010085C2A4 /* OggSpeexRecorder.mm in Sources */,
-				0422AC50202C17010085C2A4 /* SpeexCodec.m in Sources */,
 				0422ABFE202B1F730085C2A4 /* RecorderDelegater.m in Sources */,
-				0422AC54202C17010085C2A4 /* OggSpeexPlayer.m in Sources */,
-				0422AC4F202C17010085C2A4 /* RawAudioDataPlayer.m in Sources */,
-				0422AC53202C17010085C2A4 /* OggSpeexManager.m in Sources */,
-				0422AC4D202C17010085C2A4 /* CAStreamBasicDescription.mm in Sources */,
-				0422AC46202C17010085C2A4 /* Encapsulator.m in Sources */,
 				862611021F5652D600118D66 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

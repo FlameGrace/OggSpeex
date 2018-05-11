@@ -1,9 +1,9 @@
 //
 //  LMSpeexFormatConversion.h
-//  flamegrace@hotmail.com
+//  flamegrace
 //
-//  Created by Flame Grace on 17/1/9.
-//  Copyright © 2017年 flamegrace@hotmail.com. All rights reserved.
+//  Created by flamegrace on 17/1/9.
+//  Copyright © 2017年 flamegrace. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,7 +12,7 @@
 
 typedef NS_ENUM(NSInteger, OggSpeexFormatConversion_ErrorCode)
 {
-    OggSpeexFormatConversion_StreamPageinError = 20170109777, // ogg stream page in failed.;
+    OggSpeexFormatConversion_StreamPageinError = 201701091, // ogg stream page in failed.;
     OggSpeexFormatConversion_FoundNoPCM , // found no pcm data in ogg file.;
     OggSpeexFormatConversion_InputFileNameError ,
     OggSpeexFormatConversion_OutputFileCreateFailed ,

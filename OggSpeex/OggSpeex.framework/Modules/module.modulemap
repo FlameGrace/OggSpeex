@@ -1,0 +1,6 @@
+framework module OggSpeex {
+  umbrella header "OggSpeex.h"
+
+  export *
+  module * { export * }
+}

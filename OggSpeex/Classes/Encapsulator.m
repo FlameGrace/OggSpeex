@@ -162,21 +162,19 @@ void writeString(unsigned char *dest, int offset, unsigned char *value, int leng
     SpeexCodec *codec = [[SpeexCodec alloc] init];
     [codec open:4];     //压缩率为4
     while ( ! self.mParent.isCanceled) {
-        if ([[self.mParent getPCMDatas] count] > 0) {
-            NSData *pcmData = [[self.mParent getPCMDatas] objectAtIndex:0];
-            
+        NSData *pcmData = [[self.mParent getPCMDatas] firstObject];
+        [[self.mParent getPCMDatas] removeObject:pcmData];
+        if (pcmData)
+        {
             int length = (int)([pcmData length]/sizeof(short));
-            
             NSData *speexData = [codec encode:(short *)[pcmData bytes] length:length];
-            
             [self inputOggPacketFromSpeexData:speexData];
-            
-            [[self.mParent getPCMDatas] removeObjectAtIndex:0];
         }
-        else {
+        else
+        {
             [NSThread sleepForTimeInterval:0.02];
-            
-            if ( ! [self.mParent moreDataInputing]) {
+            if (![self.mParent moreDataInputing])
+            {
                 break;
             }
         }
@@ -323,7 +321,7 @@ void writeString(unsigned char *dest, int offset, unsigned char *value, int leng
     if ( ! [fileManager fileExistsAtPath:filename]) {
         [fileManager createFileAtPath:filename contents:nil attributes:nil];
     }
-//    NSLog(@"write data of %d bytes to file %@", [newData length], filename);
+    NSLog(@"write data of %d bytes to file %@", [newData length], filename);
     NSFileHandle *file = [NSFileHandle fileHandleForUpdatingAtPath:filename];
     [file seekToEndOfFile];
     [file writeData:newData];

@@ -59,10 +59,7 @@ AudioQueueLevelMeterState *levelMeterStates;
     }
     if(reason != AVAudioSessionRouteChangeReasonCategoryChange)
     {
-        if (mAQRecorder->IsRunning())
-        {
-            [self stopRecord];
-        }
+        [self interruptionStopRecord];
     }
 }
 
@@ -74,10 +71,16 @@ AudioQueueLevelMeterState *levelMeterStates;
     }
     if(type == AVAudioSessionInterruptionTypeBegan)
     {
-        if (mAQRecorder->IsRunning())
-        {
-            [self stopRecord];
-        }
+        [self interruptionStopRecord];
+    }
+}
+
+//录音被电话等突发事件打断，停止录音
+- (void)interruptionStopRecord
+{
+    if (mAQRecorder && mAQRecorder->IsRunning())
+    {
+        [self stopRecord];
     }
 }
 
@@ -114,6 +117,7 @@ AudioQueueLevelMeterState *levelMeterStates;
         {
             [self.delegate oggSpeexDidReachMaxRecordDuration:self];
         }
+        [self stopRecord];
     }
 }
 
@@ -216,7 +220,6 @@ AudioQueueLevelMeterState *levelMeterStates;
         delete levelMeterStates;
     }
     self.encapsulator = nil;
-    [self.tool stopListen];
 }
 
 @end

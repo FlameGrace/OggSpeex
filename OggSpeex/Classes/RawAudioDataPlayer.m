@@ -9,6 +9,9 @@
 #import "RawAudioDataPlayer.h"
 
 @interface RawAudioDataPlayer()
+{
+    BOOL isPlaying;
+}
 
 - (void)prepare;
 - (void)initAudio;
@@ -49,6 +52,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PLAY_OVER object:nil];
         return;
     }
+    isPlaying = YES;
     for(int i=0;i<QUEUE_BUFFER_SIZE;i++) {
         [self readPCMAndPlay:audioQueue buffer:audioQueueBuffers[i]];
     }
@@ -59,8 +63,12 @@
 }
 
 -(void)stopPlay {
-    AudioQueueStop(audioQueue, YES);
-    AudioQueueDispose(audioQueue, YES);
+    if(isPlaying)
+    {
+        isPlaying = NO;
+        AudioQueueStop(audioQueue, YES);
+        AudioQueueDispose(audioQueue, YES);
+    }
 }
 
 

@@ -2,7 +2,7 @@
 //  SimpleProjectUITests.m
 //  SimpleProjectUITests
 //
-//  Created by 李嘉军 on 2017/8/30.
+//  Created by flamegrace on 2017/8/30.
 //  Copyright © 2017年 com.flamegrace. All rights reserved.
 //
 

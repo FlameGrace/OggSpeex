@@ -32,7 +32,6 @@
         self.autoSwitchPlayCateGory = YES;
         self.tool = [[ProximityMoniteringTool alloc]init];
         self.tool.delegate = self;
-        [self.tool startProximityMonitering];
     }
     return self;
 }
@@ -89,6 +88,7 @@
             [self.avAudioPlayer stop];
         }
         self.avAudioPlayer = nil;
+        [self.tool stopProximityMonitering];
     }
 }
 
@@ -103,6 +103,7 @@
     self.delegate = newDelegate;
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     [self switchPlayCateGory];
+    [self.tool startProximityMonitering];
     if ([filePath rangeOfString:@".spx"].location != NSNotFound)
     {
         [[AVAudioSession sharedInstance] setActive:YES error:nil];

@@ -27,14 +27,14 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/FlameGrace/OggSpeex.git", :tag => "0.0.1" }
 
   s.source_files  = "OggSpeex/**/*.{h,m,mm,framework}"
-  s.public_header_files = "OggSpeex/**/*.h"
+  s.public_header_files = "OggSpeex/**/*.{h,framework}"
 
   s.homepage     = "flamegrace@hotmail"
   s.license      = { :type => "BSD", :file => "LICENSE" }
 
   s.framework  = "OggSpeex"
   s.xcconfig = { 
-    'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/OggSpeex"',
+    'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/OggSpeex/OggSpeex"',
     'GCC_PREPROCESSOR_DEFINITIONS' => ''
   }
 

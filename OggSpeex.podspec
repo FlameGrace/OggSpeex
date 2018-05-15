@@ -22,21 +22,22 @@ Pod::Spec.new do |s|
                       OggSpeex Tools
                    DESC
 
-  s.author             = { "flamegrace" => "flamegrace" }
+  s.author             = { "Flame Grace" => "Flame Grace" }
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/FlameGrace/OggSpeex.git", :tag => "0.0.1" }
 
-  s.source_files  = "OggSpeex/**/*.{h,m,mm,framework}"
-  s.public_header_files = "OggSpeex/**/*.{h,framework}"
+  s.source_files  = "OggSpeex","OggSpeex/OggSpeex/**/*.{h,m,mm}"
 
   s.homepage     = "flamegrace@hotmail"
   s.license      = { :type => "BSD", :file => "LICENSE" }
 
-  s.framework  = "OggSpeex"
+  s.vendored_frameworks = 'OggSpeex/Framework/*.framework'
   s.xcconfig = { 
-    'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/OggSpeex/OggSpeex"',
-    'GCC_PREPROCESSOR_DEFINITIONS' => ''
+    'GCC_PREPROCESSOR_DEFINITIONS' => '',
+    'ENABLE_BITCODE' => 'NO'
   }
+
+  s.library = 'stdc++'
 
   s.dependency "DispatchTimer"
 

@@ -526,10 +526,7 @@
 				INFOPLIST_FILE = SimpleProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../OggSpeex/Classes/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flamegrace.SimpleProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -545,10 +542,7 @@
 				INFOPLIST_FILE = SimpleProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../OggSpeex/Classes/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flamegrace.SimpleProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

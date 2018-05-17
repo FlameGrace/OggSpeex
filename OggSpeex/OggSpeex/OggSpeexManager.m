@@ -1,9 +1,9 @@
 //
-//  LMSpeexManager.m
-//  flamegrace@hotmail.com
+//  OggSpeexManager.m
+//  flame grace
 //
-//  Created by Flame Grace on 16/12/21.
-//  Copyright © 2016年 flamegrace@hotmail.com. All rights reserved.
+//  Created by flame grace on 16/12/21.
+//  Copyright © 2016年 flame grace. All rights reserved.
 //
 
 #import "OggSpeexManager.h"
@@ -12,14 +12,10 @@
 #import "AudioSessionNotificationTool.h"
 #import "ProximityMoniteringTool.h"
 
-@interface OggSpeexManager() <AudioSessionNotificationToolDelegate,ProximityMoniteringToolDelegate>
+@interface OggSpeexManager()
 
 @property (strong, nonatomic) OggSpeexPlayer *player;
 @property (strong, nonatomic) OggSpeexRecorder *recorder;
-@property (nonatomic, strong) AudioSessionNotificationTool *audioTool;
-@property (nonatomic, strong) ProximityMoniteringTool *proximityTool;
-@property (nonatomic, assign) BOOL playAndRecordMode; //是否是听筒模式，YES：听筒模式，NO：扬声器模式
-@property (nonatomic, assign) BOOL autoSwitchPlayCateGory;
 
 @end
 
@@ -42,94 +38,40 @@ static OggSpeexManager *shareManager = nil;
 {
     if(self = [super init])
     {
-        self.autoSwitchPlayCateGory = YES;
-        self.audioTool = [[AudioSessionNotificationTool alloc]init];
-        self.audioTool.delegate = self;
-        [self.audioTool startListen];
-        self.proximityTool = [[ProximityMoniteringTool alloc]init];
-        self.proximityTool.delegate = self;
-        [self.proximityTool startProximityMonitering];
         self.player = [[OggSpeexPlayer alloc]init];
         self.recorder = [[OggSpeexRecorder alloc]init];
     }
     return self;
-}
-- (void)proximityMoniteringToolStateChange:(ProximityMoniteringTool *)tool
-{
-    [self autoSwitchPlayCategoryWhenProximityMoniteringToolStateChange];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeex:proximityDeviceStateChanged:)])
-    {
-        [self.delegate oggSpeex:self proximityDeviceStateChanged:tool.proximityState];
-    }
-}
-
-- (void)audioSessionNotificationTool:(AudioSessionNotificationTool *)tool audioSessionRouteChange:(NSUInteger)reason
-{
-    if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeex:audioSessionRouteChange:)])
-    {
-        [self.delegate oggSpeex:self audioSessionRouteChange:reason];
-    }
-}
-
-- (void)audioSessionNotificationTool:(AudioSessionNotificationTool *)tool audioSessionInterruption:(NSUInteger)type
-{
-    if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeex:audioSessionInterruption:)])
-    {
-        [self.delegate oggSpeex:self audioSessionInterruption:type];
-    }
-}
-
-
-- (void)autoSwitchPlayCategoryWhenProximityMoniteringToolStateChange
-{
-    if(self.autoSwitchPlayCateGory &&!self.playAndRecordMode)
-    {
-        if(self.isPlaying && self.player.playingFilePath)
-        {
-            //从扬声器切换到听筒，从头开始播放
-            if(self.proximityTool.proximityState)
-            {
-                [AVAudioSessionPlayCateGoryTool switchToPlayAndRecord];
-                [self playAudioFile:self.player.playingFilePath playAndRecordMode:YES];
-            }
-            else
-            {
-                //从扬声器切换到自动
-                [AVAudioSessionPlayCateGoryTool switchToPlayback];
-            }
-        }
-        
-    }
 }
 
 - (BOOL)isPlaying
 {
     return self.player.isPlaying;
 }
+
 - (BOOL)proximityState
 {
-    return self.proximityTool.proximityState;
+    return self.player.proximityState;
 }
 
-
-- (void)setMaxRecordDuration:(NSTimeInterval)maxRecordDuration
+- (void)setAutoSwitchPlayCateGory:(BOOL)autoSwitchPlayCateGory
 {
-    self.recorder.maxRecordDuration = maxRecordDuration;
+    self.player.autoSwitchPlayCateGory = autoSwitchPlayCateGory;
 }
 
-- (NSTimeInterval)maxRecordDuration
+- (BOOL)autoSwitchPlayCateGory
 {
-    return self.recorder.maxRecordDuration;
+    return self.player.autoSwitchPlayCateGory;
 }
 
-- (BOOL)isRecording
+- (void)setPlayAndRecordMode:(BOOL)playAndRecordMode
 {
-    return self.recorder.isRecording;
+    self.player.playAndRecordMode = playAndRecordMode;
 }
 
-- (NSTimeInterval)recordDuration
+- (BOOL)playAndRecordMode
 {
-    return self.recorder.recordDuration;
+    return self.player.playAndRecordMode;
 }
 
 - (void)playAudioFile:(NSString *)filePath playAndRecordMode:(BOOL)playAndRecordMode
@@ -157,6 +99,28 @@ static OggSpeexManager *shareManager = nil;
         [self.player stopPlay];
     }
 }
+
+
+- (BOOL)isRecording
+{
+    return self.recorder.isRecording;
+}
+
+- (NSTimeInterval)recordDuration
+{
+    return self.recorder.recordDuration;
+}
+
+- (void)setMaxRecordDuration:(NSTimeInterval)maxRecordDuration
+{
+    self.recorder.maxRecordDuration = maxRecordDuration;
+}
+
+- (NSTimeInterval)maxRecordDuration
+{
+    return self.recorder.maxRecordDuration;
+}
+
 
 - (void)startRecordInFilePath:(NSString *)filePath
 {
@@ -202,3 +166,4 @@ static OggSpeexManager *shareManager = nil;
 }
 
 @end
+

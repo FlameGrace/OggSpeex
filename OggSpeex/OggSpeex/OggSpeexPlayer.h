@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "OggSpeexProtocol.h"
 
-@interface OggSpeexPlayer : NSObject
+@interface OggSpeexPlayer : NSObject 
 
+@property (readonly, assign, nonatomic) BOOL proximityState;
+@property (nonatomic, assign) BOOL playAndRecordMode; //是否是听筒模式，YES：听筒模式，NO：扬声器模式
+@property (nonatomic, assign) BOOL autoSwitchPlayCateGory;//自动根据距离感应器切换听筒模式和扬声器模式
 @property (nonatomic, weak)  id<OggSpeexPlayerDelegate> delegate;
 @property (readonly, nonatomic, assign) BOOL isPlaying;
 @property (readonly, nonatomic, copy) NSString *playingFilePath;

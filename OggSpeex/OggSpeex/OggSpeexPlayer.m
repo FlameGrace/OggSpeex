@@ -11,9 +11,11 @@
 #import "Decapsulator.h"
 #import <UIKit/UIKit.h>
 #import "AVAudioSessionPlayCateGoryTool.h"
+#import "ProximityMoniteringTool.h"
 
 @interface OggSpeexPlayer ()<DecapsulatingDelegate, AVAudioPlayerDelegate>
 
+@property (nonatomic, strong) ProximityMoniteringTool *tool;
 @property (nonatomic, strong) Decapsulator *decapsulator;
 @property (nonatomic, strong) AVAudioPlayer *avAudioPlayer;
 @property (readwrite, nonatomic, assign) BOOL isPlaying;
@@ -23,18 +25,43 @@
 
 @implementation OggSpeexPlayer
 
-
-- (void)switchPlayCateGoryByPlayAndRecordMode:(BOOL)playAndRecordMode
+- (instancetype)init
 {
-    if(playAndRecordMode)
+    if(self = [super init])
     {
-        //听筒模式
-        [AVAudioSessionPlayCateGoryTool switchToPlayAndRecord];
+        self.autoSwitchPlayCateGory = YES;
     }
-    else
+    return self;
+}
+
+- (void)proximityMoniteringToolStateChange:(ProximityMoniteringTool *)tool
+{
+    [self autoSwitchPlayCategoryWhenProximityMoniteringToolStateChange];
+    if(self.delegate&&[self.delegate respondsToSelector:@selector(oggSpeex:proximityDeviceStateChanged:)])
     {
-        //扬声器模式
-        [AVAudioSessionPlayCateGoryTool switchToPlayback];
+        [self.delegate oggSpeex:self proximityDeviceStateChanged:tool.proximityState];
+    }
+    
+}
+- (void)autoSwitchPlayCategoryWhenProximityMoniteringToolStateChange
+{
+    if(self.autoSwitchPlayCateGory &&!self.playAndRecordMode)
+    {
+        if(self.isPlaying && self.playingFilePath)
+        {
+            //从扬声器切换到听筒，从头开始播放
+            if(self.proximityState)
+            {
+                [AVAudioSessionPlayCateGoryTool switchToPlayAndRecord];
+                [self playAudioFile:self.playingFilePath newDelegate:self.delegate playAndRecordMode:YES];
+            }
+            else
+            {
+                //从扬声器切换到自动
+                [AVAudioSessionPlayCateGoryTool switchToPlayback];
+            }
+        }
+        
     }
 }
 
@@ -52,10 +79,7 @@
             return;
         }
         self.isPlaying = NO;
-        if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeexStopedPlay:)])
-        {
-            [self.delegate oggSpeexStopedPlay:self];
-        }
+        [self oggSpeexDidStopPlay];
         if (self.decapsulator.isPlaying)
         {
             [self.decapsulator stopPlaying];
@@ -87,10 +111,7 @@
         self.decapsulator = [[Decapsulator alloc] initWithFileName:filePath];
         self.decapsulator.delegate = self;
         [self.decapsulator play];
-        if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeexStartPlay:)])
-        {
-            [self.delegate oggSpeexStartPlay:self];
-        }
+        [self oggSpeexDidStartPlay];
         return;
     }
     if([filePath rangeOfString:@".mp3"].location != NSNotFound)
@@ -101,14 +122,64 @@
         {
             self.avAudioPlayer.delegate = self;
             [self.avAudioPlayer play];
-            if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeexStartPlay:)])
-            {
-                [self.delegate oggSpeexStartPlay:self];
-            }
+            [self oggSpeexDidStartPlay];
             return;
         }
     }
     [self stopPlay];
+}
+
+- (void)oggSpeexDidStartPlay
+{
+    if(self.autoSwitchPlayCateGory)
+    {
+        [self.tool startProximityMonitering];
+    }
+    if(self.delegate&&[self.delegate respondsToSelector:@selector(oggSpeexStartPlay:)])
+    {
+        [self.delegate oggSpeexStartPlay:self];
+    }
+}
+
+- (void)oggSpeexDidStopPlay
+{
+    if(self.autoSwitchPlayCateGory)
+    {
+        [self.tool stopProximityMonitering];
+    }
+    if(self.delegate&&[self.delegate respondsToSelector:@selector(oggSpeexStopedPlay:)])
+    {
+        [self.delegate oggSpeexStopedPlay:self];
+    }
+}
+
+- (void)switchPlayCateGoryByPlayAndRecordMode:(BOOL)playAndRecordMode
+{
+    if(playAndRecordMode)
+    {
+        //听筒模式
+        [AVAudioSessionPlayCateGoryTool switchToPlayAndRecord];
+    }
+    else
+    {
+        //扬声器模式
+        [AVAudioSessionPlayCateGoryTool switchToPlayback];
+    }
+}
+
+- (BOOL)proximityState
+{
+    return [self.tool proximityState];
+}
+
+- (ProximityMoniteringTool *)tool
+{
+    if(!_tool)
+    {
+        _tool = [[ProximityMoniteringTool alloc]init];
+        _tool.delegate = self;
+    }
+    return _tool;
 }
 
 @end

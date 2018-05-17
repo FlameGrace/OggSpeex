@@ -38,7 +38,6 @@ AudioQueueLevelMeterState *levelMeterStates;
     {
         self.tool = [[AudioSessionNotificationTool alloc]init];
         self.tool.delegate = self;
-        [self .tool startListen];
         self.maxRecordDuration = 60;
         __weak typeof(self) weakSelf = self;
         self.recordDurationTimer = [[DispatchTimer alloc]initWithDuration:1 handleBlock:^{
@@ -121,8 +120,18 @@ AudioQueueLevelMeterState *levelMeterStates;
     }
 }
 
+- (void)oggSpeexRecordFailed
+{
+    [self.tool stopListen];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeexRecordFailed:)])
+    {
+        [self.delegate oggSpeexRecordFailed:self];
+    }
+}
+
 - (void)startRecordInFilePath:(NSString *)filePath newDelegate:(id<OggSpeexRecorderDelegate>)newDelegate
 {
+    [self.tool startListen];
     if(self.isRecording)
     {
         [self cancelRecord];
@@ -135,10 +144,7 @@ AudioQueueLevelMeterState *levelMeterStates;
     NSError *error = [AVAudioSessionPlayCateGoryTool switchToPlayAndRecord];
     if(error)
     {
-        if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeexRecordFailed:)])
-        {
-            [self.delegate oggSpeexRecordFailed:self];
-        }
+        [self oggSpeexRecordFailed];
         return;
     }
     self.filePath = filePath;
@@ -151,16 +157,12 @@ AudioQueueLevelMeterState *levelMeterStates;
     {
         [self.encapsulator resetWithFileName:self.filePath];
     }
-    
-    if ( ! mAQRecorder->IsRunning())
+    if (!mAQRecorder->IsRunning())
     {
         Boolean recordingWillBegin = mAQRecorder->StartRecord(self.encapsulator);
-        if (!recordingWillBegin)
+        if(!recordingWillBegin)
         {
-            if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeexRecordFailed:)])
-            {
-                [self.delegate oggSpeexRecordFailed:self];
-            }
+            [self oggSpeexRecordFailed];
             return;
         }
     }
@@ -188,6 +190,7 @@ AudioQueueLevelMeterState *levelMeterStates;
 - (void)stopRecording:(BOOL)isCanceled
 {
     self.isRecording = NO;
+    [self.tool stopListen];
     if (self.delegate && [self.delegate respondsToSelector:@selector(oggSpeexStopedRecord:isCanceled:)])
     {
         [self.delegate oggSpeexStopedRecord:self isCanceled:isCanceled];

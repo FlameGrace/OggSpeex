@@ -19,20 +19,5 @@
     }
 }
 
-- (void)oggSpeex:(id)oggSpeex proximityDeviceStateChanged:(BOOL)near
-{
-    NSLog(@"哈哈--PlayerDelegater");
-}
-
-- (void)oggSpeex:(id)oggSpeex audioSessionRouteChange:(NSUInteger)reason
-{
-    if(reason == 3)
-    {
-        if(self.playCateGoryBlock)
-        {
-            self.playCateGoryBlock();
-        }
-    }
-}
 
 @end

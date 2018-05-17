@@ -39,17 +39,6 @@
     NSLog(@"录音时长变化：%f",duration);
 }
 
-- (void)oggSpeex:(id)oggSpeex audioSessionRouteChange:(NSUInteger)reason
-{
-    if(reason == 3)
-    {
-        if(self.playCateGoryBlock)
-        {
-            self.playCateGoryBlock();
-        }
-    }
-}
-
 - (void)oggSpeex:(id)oggSpeex proximityDeviceStateChanged:(BOOL)near
 {
     NSLog(@"哈哈--RecorderDelegater");

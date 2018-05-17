@@ -9,5 +9,4 @@
 #import <Foundation/Foundation.h>
 
 typedef void(^StopPlayedBlock)(void);
-typedef void(^PlayCateGoryChangedBlock)(void);
 typedef void(^RecordNewFileBlock)(NSString *filePath, NSTimeInterval duration);

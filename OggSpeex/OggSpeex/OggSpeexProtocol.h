@@ -14,7 +14,6 @@
 
 - (void)oggSpeexStartPlay:(id)oggSpeex;
 - (void)oggSpeexStopedPlay:(id)oggSpeex;
-- (void)oggSpeex:(id)oggSpeex proximityDeviceStateChanged:(BOOL)near;
 
 @end
 
@@ -27,7 +26,5 @@
 - (void)oggSpeexRecordFailed:(id)oggSpeex;
 - (void)oggSpeex:(id)oggSpeex recordLevelMeterChanged:(float)level;
 - (void)oggSpeex:(id)oggSpeex recordDurationChanged:(NSTimeInterval)duration;
-- (void)oggSpeex:(id)oggSpeex audioSessionInterruption:(NSUInteger)type;
-- (void)oggSpeex:(id)oggSpeex audioSessionRouteChange:(NSUInteger)reason;
 
 @end

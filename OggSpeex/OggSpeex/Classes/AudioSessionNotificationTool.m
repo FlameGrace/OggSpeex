@@ -8,6 +8,13 @@
 
 #import "AudioSessionNotificationTool.h"
 
+@interface AudioSessionNotificationTool()
+
+@property (assign, nonatomic) BOOL isMonitering;
+
+@end
+
+
 @implementation AudioSessionNotificationTool
 
 - (void)interruptionListener:(NSNotification *)notification
@@ -39,13 +46,21 @@
 
 - (void)startListen
 {
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(interruptionListener:) name:AVAudioSessionInterruptionNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(audioRouteChange:) name:AVAudioSessionRouteChangeNotification object:nil];
+    if(!self.isMonitering)
+    {
+        self.isMonitering = YES;
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(interruptionListener:) name:AVAudioSessionInterruptionNotification object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(audioRouteChange:) name:AVAudioSessionRouteChangeNotification object:nil];
+    }
 }
 
 - (void)stopListen
 {
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    if(self.isMonitering)
+    {
+        self.isMonitering = NO;
+        [[NSNotificationCenter defaultCenter]removeObserver:self];
+    }
 }
 
 - (void)dealloc

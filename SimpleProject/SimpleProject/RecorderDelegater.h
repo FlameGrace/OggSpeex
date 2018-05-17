@@ -14,7 +14,6 @@
 
 @interface RecorderDelegater : NSObject <OggSpeexManagerDelegate>
 
-@property (copy, nonatomic) PlayCateGoryChangedBlock playCateGoryBlock;
 @property (copy, nonatomic) RecordNewFileBlock newBlock;
 
 @end

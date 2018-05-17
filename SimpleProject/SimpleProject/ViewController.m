@@ -10,6 +10,7 @@
 #import "OggSpeexManager.h"
 #import "RecorderDelegater.h"
 #import "PlayerDelegater.h"
+#import "AudioSessionNotificationTool.h"
 
 @interface RecordObject : NSObject
 
@@ -29,7 +30,7 @@
 @end
 
 
-@interface ViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface ViewController () <UITableViewDelegate,UITableViewDataSource,AudioSessionNotificationToolDelegate>
 
 @property (strong, nonatomic) NSMutableArray <RecordObject *> *records;
 
@@ -41,9 +42,14 @@
 
 @property (strong, nonatomic) RecordObject *playingModel;
 
-@property (strong, nonatomic) RecorderDelegater *recordDelegater;
 
+/**
+ 用于检验切换新代理，旧代理是否能收到结束方法回调
+ */
+@property (strong, nonatomic) RecorderDelegater *recordDelegater;
 @property (strong, nonatomic) PlayerDelegater *playDelegater;
+
+@property (strong, nonatomic) AudioSessionNotificationTool *audioTool;
 
 @end
 
@@ -51,19 +57,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.audioTool = [[AudioSessionNotificationTool alloc]init];
+    self.audioTool.delegate = self;
+    [self.audioTool startListen];
+    
     __weak typeof(self) weakSelf = self;
     self.recordDelegater = [[RecorderDelegater alloc]init];
-    self.recordDelegater.playCateGoryBlock = ^{
-        [weakSelf showCategory];
-    };
     self.recordDelegater.newBlock = ^(NSString *filePath, NSTimeInterval duration) {
         [weakSelf recordNewFile:filePath recordDuration:duration];
     };
     
     self.playDelegater = [[PlayerDelegater alloc]init];
-    self.playDelegater.playCateGoryBlock = ^{
-        [weakSelf showCategory];
-    };
     self.playDelegater.stopBlock = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tableView reloadData];
@@ -75,6 +80,14 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self showCategory];
+}
+
+- (void)audioSessionNotificationTool:(AudioSessionNotificationTool *)tool audioSessionRouteChange:(NSUInteger)reason
+{
+    if(reason == 3)
+    {
+        [self showCategory];
+    }
 }
 
 - (void)recordNewFile:(NSString *)filePath recordDuration:(NSTimeInterval)duration

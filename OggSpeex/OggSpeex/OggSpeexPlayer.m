@@ -37,11 +37,6 @@
 - (void)proximityMoniteringToolStateChange:(ProximityMoniteringTool *)tool
 {
     [self autoSwitchPlayCategoryWhenProximityMoniteringToolStateChange];
-    if(self.delegate&&[self.delegate respondsToSelector:@selector(oggSpeex:proximityDeviceStateChanged:)])
-    {
-        [self.delegate oggSpeex:self proximityDeviceStateChanged:tool.proximityState];
-    }
-    
 }
 - (void)autoSwitchPlayCategoryWhenProximityMoniteringToolStateChange
 {

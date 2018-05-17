@@ -52,10 +52,6 @@ AudioQueueLevelMeterState *levelMeterStates;
 
 - (void)audioSessionNotificationTool:(AudioSessionNotificationTool *)tool audioSessionRouteChange:(NSUInteger)reason
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeex:audioSessionRouteChange:)])
-    {
-        [self.delegate oggSpeex:self audioSessionRouteChange:reason];
-    }
     if(reason != AVAudioSessionRouteChangeReasonCategoryChange)
     {
         [self interruptionStopRecord];
@@ -64,10 +60,6 @@ AudioQueueLevelMeterState *levelMeterStates;
 
 - (void)audioSessionNotificationTool:(AudioSessionNotificationTool *)tool audioSessionInterruption:(NSUInteger)type
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(oggSpeex:audioSessionInterruption:)])
-    {
-        [self.delegate oggSpeex:self audioSessionInterruption:type];
-    }
     if(type == AVAudioSessionInterruptionTypeBegan)
     {
         [self interruptionStopRecord];

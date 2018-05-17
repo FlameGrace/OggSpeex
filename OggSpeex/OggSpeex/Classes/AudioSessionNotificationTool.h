@@ -13,6 +13,7 @@
 
 @protocol AudioSessionNotificationToolDelegate <NSObject>
 
+@optional
 - (void)audioSessionNotificationTool:(AudioSessionNotificationTool *)tool audioSessionInterruption:(NSUInteger)type;
 - (void)audioSessionNotificationTool:(AudioSessionNotificationTool *)tool audioSessionRouteChange:(NSUInteger)reason;
 

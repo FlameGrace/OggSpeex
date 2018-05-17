@@ -15,6 +15,5 @@
 @interface PlayerDelegater : NSObject <OggSpeexManagerDelegate>
 
 @property (copy, nonatomic) StopPlayedBlock stopBlock;
-@property (copy, nonatomic) PlayCateGoryChangedBlock playCateGoryBlock;
 
 @end

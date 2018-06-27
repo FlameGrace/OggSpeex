@@ -91,7 +91,7 @@
 
 #pragma mark	Basic Definitions
 
-#if	DEBUG || CoreAudio_Debug
+#if	CoreAudio_Debug
 	// can be used to break into debugger immediately, also see CADebugger
 	#define BusError()		(*(long *)0 = 0)
 	

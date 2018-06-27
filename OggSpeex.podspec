@@ -33,7 +33,6 @@ Pod::Spec.new do |s|
 
   s.vendored_frameworks = 'OggSpeex/Framework/*.framework'
   s.xcconfig = { 
-    'GCC_PREPROCESSOR_DEFINITIONS' => '',
     'ENABLE_BITCODE' => 'NO'
   }
 
